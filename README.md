@@ -4,7 +4,7 @@ This repository contains the first alpha Nextflow pipeline allowing to split con
 
 The current prerequisites are Singularity and the `deepmicroclass.sif` & `tiara.sif` associated tool images, which are located in :
 
-`/hps/software/users/rdf/metagenomics/service-team/users/louison/nextflow/project/bin/`
+`/hps/nobackup/rdf/metagenomics/service-team/users/louison/nextflow/project/bin/`
 
 ## Usage
 
