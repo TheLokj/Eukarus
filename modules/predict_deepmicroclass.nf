@@ -2,7 +2,7 @@
 process PREDICT_DEEPMICROCLASS {
   label 'heavy'
   publishDir "${outdir}", mode: 'copy'
-  container = "file:///${projectDir}/bin/deepmicroclass.sif"
+  container = "/hps/nobackup/rdf/metagenomics/service-team/users/louison/nextflow/project/bin/deepmicroclass.sif"
 
   input:
   val contigsPath
