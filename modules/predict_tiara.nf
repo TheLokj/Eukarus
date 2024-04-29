@@ -5,7 +5,6 @@ process PREDICT_TIARA {
 
   input:
   val contigsPath
-  val contigsFile
   val outdir
   val minLength
   

@@ -6,7 +6,6 @@ process PREDICT_DEEPMICROCLASS {
 
   input:
   val contigsPath
-  val contigsFile
   val outdir
   val modelPath
   val encoding
@@ -15,7 +14,7 @@ process PREDICT_DEEPMICROCLASS {
   val singleLen
   
   output:
-  path "${contigsFile}_pred_${encoding}_${mode}.tsv", emit: predictionsPath
+  path "${contigsPath.split("/")[-1]}_pred_${encoding}_${mode}.tsv", emit: predictionsPath
   path "dmc.log", emit: logPath
 
   script:

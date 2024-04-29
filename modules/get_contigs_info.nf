@@ -6,7 +6,7 @@ process GET_CONTIGS_INFO {
   val contigsPath
 
   output:
-  stdout
+  path "output.get_contigs_info"
 
   script:
   """
@@ -25,6 +25,6 @@ process GET_CONTIGS_INFO {
     }
     {l+=length(\$0)}
     END {
-    print header[1], l}' $contigsPath | tr -d ">" | sed "1d"
+    print header[1], l}' $contigsPath | tr -d ">" | sed "1d" > output.get_contigs_info
   """
 }

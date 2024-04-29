@@ -1,17 +1,15 @@
-include { INFOS } from '../subworkflows/infos.nf'
+include { GET_CONTIGS_INFO } from "../modules/get_contigs_info.nf"
+include { PREDICT_TIARA } from '../modules/predict_tiara.nf'
 include { DEEPMICROCLASS } from '../subworkflows/deepmicroclass.nf'
-include { TIARA } from '../subworkflows/tiara.nf'
 include { DECISION } from '../subworkflows/decision.nf'
 
 // Declaration of input variables
-params.contigsFile = null
+params.contigsPath = null
 params.minLength = 1
 
 // Declaration of path variables
-params.dataPath = "$projectDir/data/"
-params.outdir = "$projectDir/out/"
+params.outdir = "$projectDir/out/${params.contigsPath.split("/")[-1]}"
 outdir = params.outdir
-params.contigsPath = params.dataPath + params.contigsFile
 
 // DeepMicroClass parameters
 // The default modelPath will lead to the use of the one contained in the Singularity image
@@ -22,7 +20,6 @@ params.device = "cpu"
 params.singleLen = 1
 
 path = Channel.of(params.contigsPath)
-file = Channel.of(params.contigsFile)
 modelPath = Channel.of(params.modelPath)
 encoding = Channel.of(params.encoding)
 mode = Channel.of(params.mode)
@@ -32,12 +29,25 @@ minLength = Channel.of(params.minLength)
 
 workflow IDENTIFY_KINGDOM {
 
-    INFOS(path, outdir)
+    GET_CONTIGS_INFO(path)
 
-    DEEPMICROCLASS(path, file, outdir, modelPath, encoding, mode, device, singleLen)
+    infos = GET_CONTIGS_INFO.out
+        .collectFile(storeDir:outdir) {it -> ["length.tsv", it]} 
+        .splitText() {it.replaceFirst(/\n/, "").split()}  
+        .flatten().collate(2)
 
-    TIARA(path, file, outdir, minLength)
+    DEEPMICROCLASS(path, outdir, modelPath, encoding, mode, device, singleLen)
 
-    DECISION(path, INFOS.out, DEEPMICROCLASS.out.dmcHitPredictions, TIARA.out, outdir)
+    PREDICT_TIARA(path, 
+                outdir,
+                minLength)
+
+    tiaraPredictions = PREDICT_TIARA.out.predictionsPath
+                .splitCsv(sep: "\t", header:true) 
+                .map() {it -> [it.sequence_id.split()[0], it.class_fst_stage]}
+                .flatten()
+                .collate(2)
+
+    DECISION(path, infos, DEEPMICROCLASS.out.dmcHitPredictions, tiaraPredictions, outdir)
     
     }

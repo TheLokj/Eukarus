@@ -5,7 +5,6 @@ workflow DEEPMICROCLASS {
 
     take:
         path
-        file
         outdir
         modelPath
         encoding
@@ -17,7 +16,6 @@ workflow DEEPMICROCLASS {
 
         PREDICT_DEEPMICROCLASS(
             path, 
-            file,
             outdir,
             modelPath,
             encoding,
