@@ -10,7 +10,7 @@ The current prerequisites are Singularity and the tool images of [Tiara](https:/
 
 You can run the current version of the pipeline like this :
 
-    nextflow run main.nf --contigsFile {fastaContainedInData.fa}
+    nextflow run main.nf --contigsFile {fasta.fa}
 
 For non-EBI users, note that you'll need to create your own profile and associated config file in order to precise the container paths and versions. 
 
