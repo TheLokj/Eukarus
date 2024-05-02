@@ -1,8 +1,7 @@
 // Predict the kingdom with DeepMicroClass and save tool log
 process PREDICT_DEEPMICROCLASS {
   label 'heavy'
-  publishDir "${outdir}", mode: 'copy'
-  container = "/hps/nobackup/rdf/metagenomics/service-team/users/louison/nextflow/project/bin/deepmicroclass.sif"
+  publishDir "${outdir}/DeepMicroClass", mode: 'copy'
 
   input:
   val contigsPath

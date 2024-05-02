@@ -15,24 +15,31 @@ workflow DEEPMICROCLASS {
     main:
 
         PREDICT_DEEPMICROCLASS(
-            path, 
+            path,
             outdir,
             modelPath,
             encoding,
             mode,
             device,
-            singleLen)
+            singleLen
+        )
     
         scores = PREDICT_DEEPMICROCLASS.out.predictionsPath
-        .splitCsv(sep: "\t", header:true)
+                .splitCsv(sep: "\t", header:true)
         
-        PARSE_DMC_CLASSIFICATION(scores, outdir)
+        PARSE_DMC_CLASSIFICATION(
+            scores, 
+            outdir
+        )
         
         predictions = PARSE_DMC_CLASSIFICATION.out
-                        .collectFile(storeDir:outdir) {it -> ["dmc.tsv", it]}
+                        .collectFile(storeDir:"${outdir}/DeepMicroClass") {it -> ["dmc.hit.tsv", it]}
                         .splitText() {it.replaceFirst(/\n/, "").split()} 
+                        .flatten()
+                        .collate(2)
 
     emit: 
         scores = scores
-        dmcHitPredictions = predictions.flatten().collate(2)
+        dmcHitPredictions = predictions
+        logPath = PREDICT_DEEPMICROCLASS.out.logPath
 }

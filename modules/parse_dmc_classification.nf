@@ -1,6 +1,5 @@
 process PARSE_DMC_CLASSIFICATION {
   label 'light'
-  publishDir "${outdir}", mode: 'copy'
 
   input:
   tuple (val(seqName), val(eukScore), val(eukVirScore), val(plaScore), val(proScore), val(proVirScore))

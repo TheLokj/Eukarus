@@ -3,10 +3,11 @@ process SAVE_CONTIGS_PER_KINGDOM {
 
   input:
   val contigsPath
+  val index
   each result
 
   output: 
-  tuple val("${result[4]}"), path("output.save_contigs_per_kingdom")
+  tuple val("${result[index]}"), path("output.save_contigs_per_kingdom")
 
   script:
 
