@@ -1,12 +1,10 @@
 // Predict the kingdom with DeepMicroClass and save tool log
 process PREDICT_DEEPMICROCLASS {
   label 'heavy'
-  publishDir "${outdir}", mode: 'copy'
-  container = "/hps/nobackup/rdf/metagenomics/service-team/users/louison/nextflow/project/bin/deepmicroclass.sif"
+  publishDir "${outdir}/DeepMicroClass", mode: 'copy'
 
   input:
   val contigsPath
-  val contigsFile
   val outdir
   val modelPath
   val encoding
@@ -15,7 +13,7 @@ process PREDICT_DEEPMICROCLASS {
   val singleLen
   
   output:
-  path "${contigsFile}_pred_${encoding}_${mode}.tsv", emit: predictionsPath
+  path "${contigsPath.split("/")[-1]}_pred_${encoding}_${mode}.tsv", emit: predictionsPath
   path "dmc.log", emit: logPath
 
   script:

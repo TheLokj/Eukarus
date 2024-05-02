@@ -1,11 +1,9 @@
 process PREDICT_TIARA {
   label 'medium'
-  publishDir "${outdir}", mode: 'copy'
-  container = "/hps/nobackup/rdf/metagenomics/service-team/users/louison/nextflow/project/bin/tiara.sif"
+  publishDir "${outdir}/Tiara", mode: 'copy'
 
   input:
   val contigsPath
-  val contigsFile
   val outdir
   val minLength
   
