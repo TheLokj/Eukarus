@@ -33,10 +33,7 @@ Note that you can specify the [DeepMicroClass](https://github.com/chengsly/DeepM
 By default, the model contained in the Singularity image `deepmicroclass.sif` is used.
 
 In addition, although it is possible to specify the use of CUDA, please first check that the used image corresponds to the GPU version of DeepMicroClass.
-<<<<<<< HEAD
 
 ## Pipeline directed acyclic graph
 
 (Work in Progress)
-=======
->>>>>>> 35d0596f439eed6614ccba736ec8d771c593c40b
