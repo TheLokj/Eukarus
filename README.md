@@ -20,7 +20,7 @@ To easily test this pipeline, you can use the predefinied test use case :
 
 For practical cases, you can run its current version like this :
 
-    nextflow run main.nf --contigsFile {fastaContainedInData.fa}
+    nextflow run main.nf -profile ebi_slurm --contigsPath {pathToFasta}
 
 For non-EBI users, note that you'll need to create your own profile and associated config file in order to precise the container paths and versions. 
 
@@ -28,12 +28,15 @@ For non-EBI users, note that you'll need to create your own profile and associat
 
 Note that you can specify the [DeepMicroClass](https://github.com/chengsly/DeepMicroClass/tree/master) parameters by adding these when running the nextflow script :
 
-    nextflow run main.nf --contigsFile {path} --model {path} --encoding {onehot,embedding} --mode {hybrid,single} --singleLen {n} --device {cpu,cuda}
+    nextflow run main.nf -profile ebi_slurm --contigsPath {pathToFasta} --model {path} --encoding {onehot,embedding} --mode {hybrid,single} --singleLen {n} --device {cpu,cuda}
 
 By default, the model contained in the Singularity image `deepmicroclass.sif` is used.
 
 In addition, although it is possible to specify the use of CUDA, please first check that the used image corresponds to the GPU version of DeepMicroClass.
+<<<<<<< HEAD
 
 ## Pipeline directed acyclic graph
 
 (Work in Progress)
+=======
+>>>>>>> 35d0596f439eed6614ccba736ec8d771c593c40b
