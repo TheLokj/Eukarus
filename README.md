@@ -36,4 +36,5 @@ In addition, although it is possible to specify the use of CUDA, please first ch
 
 ## Pipeline directed acyclic graph
 
+![Pipeline DAG](./figures/dag.svg)
 (Work in Progress)
