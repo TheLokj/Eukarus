@@ -7,13 +7,13 @@ include { SECOND_STEP_DECISION } from '../subworkflows/second_step_decision.nf'
 include { SAVE_METADATA } from '../modules/save_metadata.nf'
 
 // Declaration of input variables
-params.outdir = "$projectDir/out/${params.contigsPath.split("/")[-1]}"
-outdir = params.outdir
+params.outdir = "$projectDir/out/"
+outdir = params.outdir + "${params.contigsPath.split("/")[-1]}"
 params.minLength = 1
 
 // DeepMicroClass parameters
 // The default modelPath will lead to the use of the one contained in the Singularity image
-params.modelPath = "default"
+params.dmcModelPath = "default"
 params.encoding = "onehot"
 params.mode = "hybrid"
 params.device = "cpu" 
@@ -28,7 +28,7 @@ taxonomyDB = Channel.fromPath(params.taxonomyDB, checkIfExists:true)
 tiaraVersion = Channel.of(params.tiaraVersion)
 dmcVersion = Channel.of(params.dmcVersion)
 
-modelPath = Channel.of(params.modelPath)
+dmcModelPath = Channel.of(params.dmcModelPath)
 encoding = Channel.of(params.encoding)
 mode = Channel.of(params.mode)
 device = Channel.of(params.device)
@@ -48,7 +48,7 @@ workflow IDENTIFY_KINGDOM {
     DEEPMICROCLASS(
         path, 
         outdir, 
-        modelPath, 
+        dmcModelPath, 
         encoding, 
         mode, 
         device, 

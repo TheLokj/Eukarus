@@ -8,16 +8,20 @@ process MAKE_SECOND_DECISION {
     stdout
 
     script:
-    if (firstStageDecision == "RequiringCATvalidation" && catPrediction == "Eukaryota (1.00)") 
+    if (firstStageDecision == "requiringCATvalidation" && catPrediction == "Eukaryota (1.00)") 
         """
-        echo -e '$id\t$length\t$tiaraPrediction\t$dmcPrediction\t$firstStageDecision\t$catPrediction\tEukaryote'
+        echo -e '$id\t$length\t$tiaraPrediction\t$dmcPrediction\t$firstStageDecision\t$catPrediction\teukaryotes'
+        """
+    else if (firstStageDecision == "requiringCATvalidation" && catPrediction != "Eukaryota (1.00)")  
+        """
+        echo -e '$id\t$length\t$tiaraPrediction\t$dmcPrediction\t$firstStageDecision\t$catPrediction\tother_kingdoms'
         """
     else if (firstStageDecision == "ClassifiedAsEukaryote") 
         """
-        echo -e '$id\t$length\t$tiaraPrediction\t$dmcPrediction\t$firstStageDecision\t-\tEukaryote'
+        echo -e '$id\t$length\t$tiaraPrediction\t$dmcPrediction\t$firstStageDecision\t-\teukaryotes'
         """
     else
         """
-        echo -e '$id\t$length\t$tiaraPrediction\t$dmcPrediction\t$firstStageDecision\t-\tNotEukaryote'
+        echo -e '$id\t$length\t$tiaraPrediction\t$dmcPrediction\t$firstStageDecision\t-\tother_kingdoms'
         """
 }

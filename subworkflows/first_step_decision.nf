@@ -28,8 +28,8 @@ workflow FIRST_STEP_DECISION {
         )
         
         contigsRequiringCATvalidatiion = SAVE_CONTIGS_PER_KINGDOM.out
-                                        .collectFile(storeDir:"${outdir}/fasta") {it -> ["firstStep_contigs${it[0]}.fa", it[1]]}
-                                        .filter(~/.*firstStep_contigsRequiringCATvalidation.fa/)
+                                        .collectFile(storeDir:"${outdir}/fasta/firstStep") {it -> ["${it[0]}.fa", it[1]]}
+                                        .filter(~/.*requiringCATvalidation.fa/)
                                         .ifEmpty("None")
                                         .collect()
 

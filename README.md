@@ -2,13 +2,23 @@
 
 This repository contains a Nextflow pipeline allowing to isolate eukaryotic contigs from assemblies. 
 
+This pipeline use the following decision rules to classify the contigs :
+
+![Decisions Rules](./figures/decisions.png)
+
+The final fasta `other_kingdoms.fa` includes the contigs not classified as eukaryotes by CAT and the contigs not classified as eukaryotes during the first classification stage.
+
 ## Requirements
 
 The current prerequisites are Singularity and the tool images of [Tiara](https://github.com/ibe-uw/tiara), [DeepMicroClass](https://github.com/chengsly/DeepMicroClass/tree/master) and [CAT](https://github.com/MGXlab/CAT_pack). 
 
 ## Usage
 
-You can run the current version of the pipeline like this :
+To easily test this pipeline, you can use the predefinied test use case :
+
+    nextflow run main.nf -profile test,ebi_slurm
+
+For practical cases, you can run its current version like this :
 
     nextflow run main.nf --contigsFile {fastaContainedInData.fa}
 
@@ -23,3 +33,7 @@ Note that you can specify the [DeepMicroClass](https://github.com/chengsly/DeepM
 By default, the model contained in the Singularity image `deepmicroclass.sif` is used.
 
 In addition, although it is possible to specify the use of CUDA, please first check that the used image corresponds to the GPU version of DeepMicroClass.
+
+## Pipeline directed acyclic graph
+
+(Work in Progress)

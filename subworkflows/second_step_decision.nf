@@ -10,7 +10,7 @@ workflow SECOND_STEP_DECISION {
         outdir
 
     main:
-    
+
         secondJoin_ch = firstDecisions
                         .flatten()
                         .collate(5)
@@ -32,7 +32,7 @@ workflow SECOND_STEP_DECISION {
         )
         
         SAVE_CONTIGS_PER_KINGDOM.out
-        .collectFile(storeDir:"${outdir}/fasta") {it -> ["secondStep_contigs${it[0]}.fa", it[1]]}
+        .collectFile(storeDir:"${outdir}/fasta/final") {it -> ["${it[0]}.fa", it[1]]}
         .collect()
 
     emit:

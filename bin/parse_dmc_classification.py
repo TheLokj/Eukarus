@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
 import sys
 
-if " " in sys.argv[1] :
-  seqName = sys.argv[1].split(" ")[0]
-else :
-  seqName = sys.argv[1]
+seqName = sys.argv[1].split(" ", 1)[0]
 
-if float(sys.argv[2]) != 0 and float(sys.argv[3]) != 0 and float(sys.argv[4]) != 0 and float(sys.argv[5]) != 0 and float(sys.argv[6]) != 0 : 
-  print(f'{seqName}\t{["Eukaryote", "EukaryoteVirus", "Plasmid", "Prokaryote", "ProkaryoteVirus"][[float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6])].index(max(float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6])))]}')
+dmcValues = [float(arg) for arg in sys.argv[2:7]]
+
+if 0 not in dmcValues:
+  maxIndex = dmcValues.index(max(dmcValues))
+  labels = ["Eukaryote", "EukaryoteVirus", "Plasmid", "Prokaryote", "ProkaryoteVirus"]
+  print(f'{seqName}\t{labels[maxIndex]}'
 else :
   print(f'{seqName}\tUnknown')

@@ -12,7 +12,7 @@ process SAVE_CONTIGS_PER_KINGDOM {
   script:
 
   """
-  grep -Pzo '>${result[0]}\\s[^\\>]*' $contigsPath | sed '\$ s/.\$//' > output.save_contigs_per_kingdom
+  seqkit grep -p ${result[0]} $contigsPath > output.save_contigs_per_kingdom
   """
-
+  
 }
