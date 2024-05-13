@@ -1,5 +1,5 @@
 process PREDICT_TIARA {
-  label 'medium'
+  label 'heavy'
   publishDir "${outdir}/Tiara", mode: 'copy'
 
   input:

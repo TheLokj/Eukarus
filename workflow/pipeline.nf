@@ -2,8 +2,8 @@ include { GET_CONTIGS_INFO } from "../modules/get_contigs_info.nf"
 include { PREDICT_TIARA } from '../modules/predict_tiara.nf'
 include { DEEPMICROCLASS } from '../subworkflows/deepmicroclass.nf'
 include { CAT } from '../subworkflows/cat.nf'
-include { FIRST_STEP_DECISION } from '../subworkflows/first_step_decision.nf'
-include { SECOND_STEP_DECISION } from '../subworkflows/second_step_decision.nf'
+include { FIRST_STAGE_DECISION } from '../subworkflows/first_stage_decision.nf'
+include { SECOND_STAGE_DECISION } from '../subworkflows/second_stage_decision.nf'
 include { SAVE_METADATA } from '../modules/save_metadata.nf'
 
 // Declaration of input variables
@@ -67,7 +67,7 @@ workflow IDENTIFY_KINGDOM {
                 .flatten()
                 .collate(2)
 
-    FIRST_STEP_DECISION(
+    FIRST_STAGE_DECISION(
         path, 
         infos, 
         DEEPMICROCLASS.out.dmcHitPredictions, 
@@ -76,16 +76,16 @@ workflow IDENTIFY_KINGDOM {
     )
  
     CAT(
-        FIRST_STEP_DECISION.out.contigsRequiringCATvalidatiion,
+        FIRST_STAGE_DECISION.out.contigsRequiringCATvalidatiion,
         outdir, 
         catDB, 
         diamondDB, 
         taxonomyDB
     )
     
-    SECOND_STEP_DECISION(
+    SECOND_STAGE_DECISION(
         path, 
-        FIRST_STEP_DECISION.out.firstDecisions, 
+        FIRST_STAGE_DECISION.out.firstDecisions, 
         CAT.out.catPredictions, 
         outdir
     ) 
