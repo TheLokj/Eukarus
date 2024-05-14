@@ -10,7 +10,7 @@ process SAVE_CONTIGS_PER_KINGDOM {
 
   script:
   """
-  seqkit grep -p \$(cat $ids) $contigsPath > output.save_contigs_per_kingdom
+  seqkit grep -f $ids $contigsPath > output.save_contigs_per_kingdom
   """
   
 }

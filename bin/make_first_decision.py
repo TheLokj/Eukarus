@@ -54,4 +54,4 @@ with open(sys.argv[1], "r") as firstResults, open("output.make_first_decision", 
 for decision in ids.keys():
   if ids[decision] != [] :
     with open(f"{decision}.ids", "w") as decisionids :
-      decisionids.write(",".join(ids[decision]))
+      decisionids.write("\n".join(ids[decision]))
