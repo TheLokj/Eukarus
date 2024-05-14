@@ -1,5 +1,5 @@
 process PREDICT_CAT {
-    label 'process_medium'
+    label 'process_high'
     publishDir "${outdir}/CAT", mode: 'copy', pattern: "cat.out.log"
     container 'quay.io/microbiome-informatics/cat'
 
@@ -17,7 +17,7 @@ process PREDICT_CAT {
     script:
     if (contigsPath =~ /requiringCATvalidation.fa/) {
     """
-    CAT contigs -c ${contigsPath[0]} -d $catDB --path_to_diamond $diamondDB -t $taxonomyDB --out_prefix cat.out -n \$(nproc) --index_chunks 1 --block_size 5
+    CAT contigs -c ${contigsPath[0]} -d $catDB --path_to_diamond $diamondDB -t $taxonomyDB --out_prefix cat.out -n \$(nproc) --index_chunks 1 --block_size 18
     """
     }
     else {
