@@ -1,5 +1,5 @@
 process ADD_NAMES_CAT {
-    label 'light'
+    label 'process_single'
     publishDir "${outdir}/CAT", mode: 'copy'
     container 'quay.io/microbiome-informatics/cat'
 

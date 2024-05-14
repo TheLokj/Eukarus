@@ -1,5 +1,5 @@
 process SAVE_METADATA {
-    label 'light'
+    label 'process_single'
     publishDir "${outdir}", mode: 'copy'
     container "${ workflow.containerEngine == 'singularity' && !task.ext.singularity_pull_docker_container ?
                 'https://depot.galaxyproject.org/singularity/biopython:1.75':'quay.io/biocontainers/biopython:1.75' }"

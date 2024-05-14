@@ -1,6 +1,6 @@
 // Get the contigs ID and length
 process GET_CONTIGS_INFO {
-  label 'light'
+  label 'process_single'
 
   input:
   val contigsPath

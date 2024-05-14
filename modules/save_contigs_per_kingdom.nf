@@ -1,5 +1,5 @@
 process SAVE_CONTIGS_PER_KINGDOM {
-  label 'light'
+  label 'process_single'
 
   input:
   path contigsPath
