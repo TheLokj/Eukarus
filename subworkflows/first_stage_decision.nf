@@ -25,6 +25,8 @@ workflow FIRST_STAGE_DECISION {
 
         ids = MAKE_FIRST_DECISION.out.ids
             .flatten()
+            .filter(~/.*requiringCATvalidation.ids/)
+            .view() {it}
 
         SAVE_CONTIGS_PER_KINGDOM(
             path, 
@@ -32,8 +34,7 @@ workflow FIRST_STAGE_DECISION {
         )
         
         contigsRequiringCATvalidatiion = SAVE_CONTIGS_PER_KINGDOM.out
-                                        .collectFile(storeDir:"${outdir}/fasta/firstStage") {it -> ["${it[0].replaceFirst(/.ids/, "")}.fa", it[1]]}
-                                        .filter(~/.*requiringCATvalidation.fa/)
+                                        .collectFile() {it -> ["${it[0].replaceFirst(/.ids/, "")}.fa", it[1]]}
                                         .ifEmpty("None")
                                         .collect()
 

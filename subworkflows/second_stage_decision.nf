@@ -37,7 +37,7 @@ workflow SECOND_STAGE_DECISION {
         )
         
         SAVE_CONTIGS_PER_KINGDOM.out
-        .collectFile(storeDir:"${outdir}/fasta/final") {it -> ["${it[0].replaceFirst(/.ids/, "")}.fa", it[1]]}
+        .collectFile(storeDir:"${outdir}/fasta/") {it -> ["${it[0].replaceFirst(/.ids/, "")}.fa", it[1]]}
         .collect()
 
     emit:
