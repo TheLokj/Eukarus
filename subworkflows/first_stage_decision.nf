@@ -26,7 +26,6 @@ workflow FIRST_STAGE_DECISION {
         ids = MAKE_FIRST_DECISION.out.ids
             .flatten()
             .filter(~/.*requiringCATvalidation.ids/)
-            .view() {it}
 
         SAVE_CONTIGS_PER_KINGDOM(
             path, 
