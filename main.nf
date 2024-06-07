@@ -2,8 +2,8 @@
 
 nextflow.enable.dsl = 2
 
-include { IDENTIFY_KINGDOM } from './workflow/pipeline.nf'
+include { EUKARUS } from './workflow/pipeline.nf'
 
 workflow {
-    IDENTIFY_KINGDOM()
+    EUKARUS()
 }

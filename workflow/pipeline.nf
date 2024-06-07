@@ -36,7 +36,7 @@ singleLen = Channel.of(params.singleLen)
 minLength = Channel.of(params.minLength)
 
 
-workflow IDENTIFY_KINGDOM {
+workflow EUKARUS {
 
     GET_CONTIGS_INFO(path)
 

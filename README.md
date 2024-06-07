@@ -1,4 +1,4 @@
-# kingdom-investigator
+# Eukarus
 
 This repository contains a Nextflow pipeline allowing to isolate eukaryotic contigs from assemblies. 
 

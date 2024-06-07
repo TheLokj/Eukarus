@@ -28,10 +28,13 @@ with open(sys.argv[1], "r") as firstResults, open("output.make_first_decision", 
       firstDecision = "classifiedAsProkaryote"
 
     # Cases where DeepMicroClass and Tiara have a different  prediction
-    # Cases where Tiara classify as an eukaryote but DeepMicroClass don't (prok or virus)
-    elif dmcPrediction in dmc_prok and tiaraPrediction == "eukarya" :
+    # Cases where Tiara classify as an eukaryote but DeepMicroClass doesn't (prok or virus)
+    elif dmcPrediction in dmc_prok and tiaraPrediction == "eukarya" and int(length) >= 3000 :
       firstDecision = "classifiedAsEukaryote"
-    # Cases where DeepMicroClass classify as a eukaryote but Tiara don't (prok, organella or unknown)
+    elif dmcPrediction in dmc_prok and tiaraPrediction == "eukarya" and int(length) < 3000 :
+      firstDecision = "requiringCATvalidation"
+
+    # Cases where DeepMicroClass classify as a eukaryote but Tiara doesn't (prok, organella or unknown)
     elif dmcPrediction == "Eukaryote" and tiaraPrediction != "eukarya" :
       firstDecision = "requiringCATvalidation"
     
