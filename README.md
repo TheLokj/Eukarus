@@ -28,7 +28,7 @@ By default, the model contained in the Singularity image `deepmicroclass.sif` is
 
 In addition, although it is possible to specify the use of CUDA, please first check that the used image corresponds to the GPU version of DeepMicroClass.
 
-## Decisions rules
+## Decision rules
 
 This pipeline use the following decision rules to classify the contigs :
 
