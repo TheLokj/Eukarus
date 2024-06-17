@@ -1,16 +1,6 @@
-# Eukarus
-
 ![Eukarus logo](./figures/logo.png)
 
-This repository contains a Nextflow pipeline allowing to isolate eukaryotic contigs from assemblies. 
-
-This pipeline use the following decision rules to classify the contigs :
-
-![First classification stage rules](./figures/decision1.png)
-
-![Second classification stage rules](./figures/decision2.png)
-
-The final fasta `other_kingdoms.fa` includes the contigs not classified as eukaryotes by CAT and the contigs not classified as eukaryotes during the first classification stage.
+This repository contains a Nextflow pipeline that allows eukaryotic contigs to be isolated from assemblies.
 
 ## Requirements
 
@@ -37,6 +27,16 @@ Note that you can specify the [DeepMicroClass](https://github.com/chengsly/DeepM
 By default, the model contained in the Singularity image `deepmicroclass.sif` is used.
 
 In addition, although it is possible to specify the use of CUDA, please first check that the used image corresponds to the GPU version of DeepMicroClass.
+
+## Decisions rules
+
+This pipeline use the following decision rules to classify the contigs :
+
+![First classification stage rules](./figures/decision1.png)
+
+![Second classification stage rules](./figures/decision2.png)
+
+The final fasta `other_kingdoms.fa` includes the contigs not classified as eukaryotes by CAT and the contigs not classified as eukaryotes during the first classification stage.
 
 ## Pipeline directed acyclic graph
 
