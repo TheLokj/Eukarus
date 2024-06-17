@@ -1,12 +1,18 @@
-# -*- coding: utf-8 -*-
-import sys
+import sys, os
 
-if " " in sys.argv[1] :
-  seqName = sys.argv[1].split(" ")[0]
-else :
-  seqName = sys.argv[1]
+def select_best_hit(predictions):
+  if 0 not in dmcValues:
+    maxIndex = dmcValues.index(max(dmcValues))
+    labels = ["Eukaryote", "EukaryoteVirus", "Plasmid", "Prokaryote", "ProkaryoteVirus"]
+    return labels[maxIndex]
+  else :
+    return 'Unknown'
 
-if float(sys.argv[2]) != 0 and float(sys.argv[3]) != 0 and float(sys.argv[4]) != 0 and float(sys.argv[5]) != 0 and float(sys.argv[6]) != 0 : 
-  print(f'{seqName}\t{["Eukaryote", "EukaryoteVirus", "Plasmid", "Prokaryote", "ProkaryoteVirus"][[float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6])].index(max(float(sys.argv[2]), float(sys.argv[3]), float(sys.argv[4]), float(sys.argv[5]), float(sys.argv[6])))]}')
-else :
-  print(f'{seqName}\tUnknown')
+with open(sys.argv[1], "r") as dmcPredictions, open("output.parse_dmc_classification", "w") as output :
+  lines = dmcPredictions.readlines()
+  for line in lines[1:] :
+    seqName = line.split("\t")[0].split(" ", 1)[0]
+    dmcValues = [float(score) for score in line.split("\t")[1:6]]
+    output.write(f'{seqName}\t{select_best_hit(dmcValues)}')
+    if line != lines[-1] :
+      output.write("\n")

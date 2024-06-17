@@ -25,7 +25,6 @@ workflow DEEPMICROCLASS {
         )
     
         scores = PREDICT_DEEPMICROCLASS.out.predictionsPath
-                .splitCsv(sep: "\t", header:true)
         
         PARSE_DMC_CLASSIFICATION(
             scores, 
@@ -33,8 +32,7 @@ workflow DEEPMICROCLASS {
         )
         
         predictions = PARSE_DMC_CLASSIFICATION.out
-                        .collectFile(storeDir:"${outdir}/DeepMicroClass") {it -> ["dmc.hit.tsv", it]}
-                        .splitText() {it.replaceFirst(/\n/, "").split()} 
+                        .splitText() {it.split()} 
                         .flatten()
                         .collate(2)
 

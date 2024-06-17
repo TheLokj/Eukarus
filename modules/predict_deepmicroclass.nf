@@ -1,6 +1,6 @@
 // Predict the kingdom with DeepMicroClass and save tool log
 process PREDICT_DEEPMICROCLASS {
-  label 'heavy'
+  label 'process_low'
   publishDir "${outdir}/DeepMicroClass", mode: 'copy'
 
   input:

@@ -1,6 +1,7 @@
 process PREDICT_CAT {
-    label 'superheavy'
+    label 'process_high'
     publishDir "${outdir}/CAT", mode: 'copy', pattern: "cat.out.log"
+    container 'quay.io/microbiome-informatics/cat'
 
     input: 
     val contigsPath
@@ -14,9 +15,9 @@ process PREDICT_CAT {
     path "cat.out.log", emit:logPath
 
     script:
-    if (contigsPath =~ /firstStep_contigsRequiringCATvalidation.fa/) {
+    if (contigsPath =~ /requiringCATvalidation.fa/) {
     """
-    CAT contigs -c ${contigsPath[0]} -d $catDB --path_to_diamond $diamondDB -t $taxonomyDB --out_prefix cat.out -n \$(nproc) --index_chunks 1 --block_size 8
+    CAT contigs -c ${contigsPath[0]} -d $catDB --path_to_diamond $diamondDB -t $taxonomyDB --out_prefix cat.out -n \$(nproc) --index_chunks 1 --block_size 18
     """
     }
     else {

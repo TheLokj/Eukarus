@@ -1,18 +1,16 @@
 process SAVE_CONTIGS_PER_KINGDOM {
-  label 'light'
+  label 'process_single'
 
   input:
-  val contigsPath
-  val index
-  each result
+  path contigsPath
+  each ids
 
   output: 
-  tuple val("${result[index]}"), path("output.save_contigs_per_kingdom")
+  tuple val("${ids[-1]}"), path("output.save_contigs_per_kingdom")
 
   script:
-
   """
-  grep -Pzo '>${result[0]}\\s[^\\>]*' $contigsPath | sed '\$ s/.\$//' > output.save_contigs_per_kingdom
+  seqkit grep -f $ids $contigsPath > output.save_contigs_per_kingdom
   """
-
+  
 }

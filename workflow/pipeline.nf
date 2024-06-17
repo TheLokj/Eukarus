@@ -2,23 +2,24 @@ include { GET_CONTIGS_INFO } from "../modules/get_contigs_info.nf"
 include { PREDICT_TIARA } from '../modules/predict_tiara.nf'
 include { DEEPMICROCLASS } from '../subworkflows/deepmicroclass.nf'
 include { CAT } from '../subworkflows/cat.nf'
-include { FIRST_STEP_DECISION } from '../subworkflows/first_step_decision.nf'
-include { SECOND_STEP_DECISION } from '../subworkflows/second_step_decision.nf'
+include { FIRST_STAGE_DECISION } from '../subworkflows/first_stage_decision.nf'
+include { SECOND_STAGE_DECISION } from '../subworkflows/second_stage_decision.nf'
 include { SAVE_METADATA } from '../modules/save_metadata.nf'
 
 // Declaration of input variables
-params.outdir = "$projectDir/out/${params.contigsPath.split("/")[-1]}"
-outdir = params.outdir
+params.outdir = "$projectDir/out/"
+outdir = params.outdir + "${params.contigsPath.split("/")[-1]}"
+
+// Tiara parameters
 params.minLength = 1
 
 // DeepMicroClass parameters
 // The default modelPath will lead to the use of the one contained in the Singularity image
-params.modelPath = "default"
+params.dmcModelPath = "default"
 params.encoding = "onehot"
 params.mode = "hybrid"
 params.device = "cpu" 
 params.singleLen = 1
-
 
 // Declaration of Channels
 path = Channel.of(params.contigsPath)
@@ -27,16 +28,14 @@ diamondDB = Channel.fromPath(params.diamondDB, checkIfExists:true)
 taxonomyDB = Channel.fromPath(params.taxonomyDB, checkIfExists:true)
 tiaraVersion = Channel.of(params.tiaraVersion)
 dmcVersion = Channel.of(params.dmcVersion)
-
-modelPath = Channel.of(params.modelPath)
+dmcModelPath = Channel.of(params.dmcModelPath)
 encoding = Channel.of(params.encoding)
 mode = Channel.of(params.mode)
 device = Channel.of(params.device)
 singleLen = Channel.of(params.singleLen)
 minLength = Channel.of(params.minLength)
 
-
-workflow IDENTIFY_KINGDOM {
+workflow EUKARUS {
 
     GET_CONTIGS_INFO(path)
 
@@ -48,7 +47,7 @@ workflow IDENTIFY_KINGDOM {
     DEEPMICROCLASS(
         path, 
         outdir, 
-        modelPath, 
+        dmcModelPath, 
         encoding, 
         mode, 
         device, 
@@ -67,7 +66,7 @@ workflow IDENTIFY_KINGDOM {
                 .flatten()
                 .collate(2)
 
-    FIRST_STEP_DECISION(
+    FIRST_STAGE_DECISION(
         path, 
         infos, 
         DEEPMICROCLASS.out.dmcHitPredictions, 
@@ -76,16 +75,16 @@ workflow IDENTIFY_KINGDOM {
     )
  
     CAT(
-        FIRST_STEP_DECISION.out.contigsRequiringCATvalidatiion,
+        FIRST_STAGE_DECISION.out.contigsRequiringCATvalidatiion,
         outdir, 
         catDB, 
         diamondDB, 
         taxonomyDB
     )
     
-    SECOND_STEP_DECISION(
+    SECOND_STAGE_DECISION(
         path, 
-        FIRST_STEP_DECISION.out.firstDecisions, 
+        FIRST_STAGE_DECISION.out.firstDecisions, 
         CAT.out.catPredictions, 
         outdir
     ) 
