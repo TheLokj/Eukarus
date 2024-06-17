@@ -1,10 +1,14 @@
 # Eukarus
 
+![Eukarus logo](./figures/logo.png)
+
 This repository contains a Nextflow pipeline allowing to isolate eukaryotic contigs from assemblies. 
 
 This pipeline use the following decision rules to classify the contigs :
 
-![Decisions Rules](./figures/decisions.png)
+![First classification stage rules](./figures/decision1.png)
+
+![Second classification stage rules](./figures/decision2.png)
 
 The final fasta `other_kingdoms.fa` includes the contigs not classified as eukaryotes by CAT and the contigs not classified as eukaryotes during the first classification stage.
 

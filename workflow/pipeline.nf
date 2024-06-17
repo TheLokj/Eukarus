@@ -9,6 +9,8 @@ include { SAVE_METADATA } from '../modules/save_metadata.nf'
 // Declaration of input variables
 params.outdir = "$projectDir/out/"
 outdir = params.outdir + "${params.contigsPath.split("/")[-1]}"
+
+// Tiara parameters
 params.minLength = 1
 
 // DeepMicroClass parameters
