@@ -21,7 +21,6 @@ params.mode = "hybrid"
 params.device = "cpu" 
 params.singleLen = 1
 
-
 // Declaration of Channels
 path = Channel.of(params.contigsPath)
 catDB = Channel.fromPath(params.catDB, checkIfExists:true)
@@ -29,14 +28,12 @@ diamondDB = Channel.fromPath(params.diamondDB, checkIfExists:true)
 taxonomyDB = Channel.fromPath(params.taxonomyDB, checkIfExists:true)
 tiaraVersion = Channel.of(params.tiaraVersion)
 dmcVersion = Channel.of(params.dmcVersion)
-
 dmcModelPath = Channel.of(params.dmcModelPath)
 encoding = Channel.of(params.encoding)
 mode = Channel.of(params.mode)
 device = Channel.of(params.device)
 singleLen = Channel.of(params.singleLen)
 minLength = Channel.of(params.minLength)
-
 
 workflow EUKARUS {
 

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 import sys, os
 
 def select_best_hit(predictions):

@@ -33,7 +33,7 @@ workflow CAT {
                     .map {it -> ["${it.split('\t')[0]}", "${(it.split('\s\\(superkingdom\\):\s')[0]).split('\t')[-1]} (${(it.split('\s\\(superkingdom\\):\s')[1]).split('[\t\n]')[0]})"]}
                     .flatten()
                     .collate(2)
-                    
+
     emit: 
         catPredictions = predictions
         logPath = PREDICT_CAT.out.logPath
